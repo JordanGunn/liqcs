@@ -1,0 +1,111 @@
+v1.5.0
+- Laszy created to read .las/.laz files and create json files in place of lasinfo
+
+v1.4.2
+- Edited reading of CRS from shapefiles to fix a common KeyError
+
+v1.4.1
+- Fixed bugs in liqcs.py
+	- Changed 'Classified' to 'classified' to run with laspy < 2.0
+	- Fixed lidar extension verification check
+
+v1.4.0
+- Replaced Density Histogram with Density Analysis test
+- Removed ground lasinfos
+- Renamed last return lasinfos to lasinfos (no reference to last return)
+- Added automatic min/max x/y check to all input .las/.laz files
+- Renamed some tests (replaced word "Grid" with "Raster", etc)
+- Improved user experience (GUI updates, messaging)
+
+v1.3.4
+- Changes to Lidar Summary test:
+	- Fixed bug in offset check
+	- Added GUID test
+	- Added check for years beyond current year
+	- Fixed bug in format_error_summary
+		- Bug: incorrect reporting of classes when class is 0, as for raw lidar
+
+v1.3.3
+- Updated to run with laspy > 2.0 (previously configured for laspy < 2.0)
+- Added CRS assignment to trajectory_to_gpkg
+
+v1.3.2 
+- Fixed coding error where if the Intensity Grids test is selected the Lasinfo test is added to 
+the list of tests, should be Density Histogram instead of Intensity Grids.
+- Fixed coding error with save_grids where 'ground' was sent as gridtype for Grid Density By Class test
+instead of class name for each class selected.
+- Fixed coding error where the generate grids function would exit early without errors and no grids in output.
+
+v1.3.1
+- Fixed coding error where if there is a '.' in the input path it assumes the path is pointing to a 
+single file where the file name is regardless of the extension.
+- Added print statments when a test starts running and when said test is complete.
+
+v1.3.0
+- Added Trajectories To GPKG test.
+	Using the trajectories_to_gpkg.py script.
+	'.out' files used as input.
+- Added Generate LiDAR Extents test.
+	Popup when selected asking user for site/project name.
+	Uses lastools function lasboundary
+- Changed 'Ground Density Grid' test to 'Density Grid By Class'
+	When selected a popup displays a series of checkboxes with density grid class options.
+- LiDAR_Summary: Added line in format_error_summary.txt listing all classes found in files. 
+- Added additional error handling for each test. If exceptions are found they will be written to 
+LiQCS_Summary.txt.
+- Updated "About" page to include descriptions of newly added tests.
+- Added recursive search option.
+
+v1.2.5
+- A single LiDAR file can now be used as input.
+- Added option to choose percentage of randomized files to be used in selected tests (except LiDAR QC Prep)
+with the default being 100%. 
+- Added "Default Tests" frame on main gui that contains buttons that pre-select tests ("LiDAR Strips (raw)", 
+"Tiled LiDAR (classified)").
+- LiQCS_summary.txt file created in output detailing input and output paths, tests, and runtime.
+- A folder of last return lasinfo files can be used as input if LiDAR Summary is the only test selected.
+- Fixed filenaming test, the year at the end of the filename was not accounted for.
+
+v1.2.4
+- GUI: Lasinfo run ground? prompt now pops up when lasinfo and any other tests are added to queue.
+- File Naming: Fixed issue where all filenames are considered correct.
+
+v1.2.3
+- LiDAR Summary: Added scale factor(x,y,z) to output.
+- LiDAR Summary: Added Min and Max z values to output (just x,y in previous versions).
+- GUI: Changed addToQueue code to be more readable and set default values for queueDict variables in 
+checkReq so that keyError: 'run_ground' wont happen.
+- GUI: Lasinfo run ground? prompt now pops up when lasinfo and any other tests except for Density Histogram
+are added to queue.
+- GUI: Added CPU cores dropdown to edit queue popup and changed layout to more closely resemble the main GUI.
+- Lasinfo, read_lidar: Added MEIPASS to path where lastools is added if LiQCS is an executable.
+
+v1.2.2
+- File Naming: Added utm09, utm9, utm11 (previously utm10, bcalb) to LiDAR and raw LiDAR checks.
+- Added -fl "file list" option from original command line version.
+- Added prompt when the lasinfo test is selected for the user to decide whether or not to create 
+ground lasinfos. If the ground density grid test is selected the user will not be prompted with 
+this option.
+- Cleaned up help and about pages.
+- Removed Raw File Naming test and moved the functionality to the File Naming test so that if a file name
+passes either test the name is considered correct and bad if it fails both.
+- Removed LiDAR QC Prep button and added LiDAR QC Prep as a test.
+
+v1.2.1
+- Added Lidar Qc Prep as button that creates a popup window. Based off LiDAR_QC_Prep.py script
+- Void Check test fixed
+
+v1.2.0
+- Added queue system to run multiple tests one after the other.
+- lidar_summary: if version number from lasinfo is not found "Failed to grab version" is placed in 
+  the version column in lidar_summary.csv and the file will be added to the format_error_summary.txt 
+- Updated 'File Naming' check to GeoBC_Naming_Conventions_2021_v2.0 specifications
+- No longer searches for .laz/s file recursively
+
+v1.1
+- Removed 'summary set' print when running lidar summary test
+- Pyproj 'syntax deprecated' error fixed
+- About button now opens 'LiQCS API Documentation.pdf'
+- Help button opens help.txt (not complete)
+- File Naming (raw) test now checks that there are 5 numbers in first 
+part of file name ('00025'_336_2020_SN007_GJVZ.laz) instead of 4.
